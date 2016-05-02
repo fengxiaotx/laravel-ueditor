@@ -112,8 +112,8 @@ class Uploader
         }
 
         try{
-            $url = \App\MSExtension\MSFile\MSFileOperate::editorUploadFile($this->fullName,$file["tmp_name"],true);
-            $this->fullName=$url;
+           // $url = \App\MSExtension\MSFile\MSFileOperate::editorUploadFile($this->fullName,$file["tmp_name"],true);
+            $this->fullName="";
             $this->stateInfo = $this->stateMap[0];
         }catch(Exception $e){
             echo $e->getMessage();
@@ -139,7 +139,7 @@ class Uploader
         $dirname = dirname($this->filePath);
 
         try{
-            $url = \App\MSExtension\MSFile\MSFileOperate::editorUploadContent($this->filePath,$img,true);
+            //$url = \App\MSExtension\MSFile\MSFileOperate::editorUploadContent($this->filePath,$img,true);
             $this->stateInfo = $this->stateMap[0];
         }catch(\Exception $e){
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
