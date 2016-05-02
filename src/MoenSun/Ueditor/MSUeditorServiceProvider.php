@@ -18,7 +18,7 @@ class MSUeditorServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $configPath = __DIR__."/../config/msueditor.php";
+        $configPath = __DIR__."/../../config/msueditor.php";
         $this->mergeConfigFrom($configPath, 'msueditor');
     }
 
