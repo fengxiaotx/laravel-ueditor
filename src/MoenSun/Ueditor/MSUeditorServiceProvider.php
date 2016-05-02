@@ -9,7 +9,7 @@
 
 namespace MoenSun\Ueditor;
 
-
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class MSUeditorServiceProvider extends ServiceProvider
@@ -23,5 +23,18 @@ class MSUeditorServiceProvider extends ServiceProvider
 
     public function boot(){
 
+        $routeConfig = [
+            'namespace' => 'MoenSun\Ueditor\Controllers',
+        ];
+
+        $this->getRouter()->group($routeConfig,function($router){
+            $router->any('mslaravel-ueditor',["uses"=>"Controller@ueditor"]);
+        });
     }
+
+    protected function getRouter()
+    {
+        return $this->app['router'];
+    }
+
 }
