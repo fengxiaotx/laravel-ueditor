@@ -1,0 +1,13 @@
+{
+    "name": "moensun/laravel-ueditor",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bane.Shi",
+            "email": "fengxiaotx@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
