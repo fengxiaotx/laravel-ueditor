@@ -10,6 +10,8 @@
 namespace MoenSun\Ueditor\Uploader;
 
 
+use Illuminate\Support\Facades\Storage;
+
 class Uploader
 {
     private $fileField; //文件域名
@@ -66,7 +68,7 @@ class Uploader
             $this->upFile();
         }
 
-        $this->stateMap['ERROR_TYPE_NOT_ALLOWED'] = iconv('unicode', 'utf-8', $this->stateMap['ERROR_TYPE_NOT_ALLOWED']);
+        $this->stateMap['ERROR_TYPE_NOT_ALLOWED'] = iconv('ISO-8859-1', 'utf-8', $this->stateMap['ERROR_TYPE_NOT_ALLOWED']);
     }
 
     /**
@@ -112,8 +114,8 @@ class Uploader
         }
 
         try{
-           // $url = \App\MSExtension\MSFile\MSFileOperate::editorUploadFile($this->fullName,$file["tmp_name"],true);
-            $this->fullName="";
+            Storage::disk(config("filesystems.upload.driver"))->write($this->fullName,$file["tmp_name"]);
+            $this->fullName= config("filesystems.upload.domain").config("filesystems.upload.prefix").$this->fullName;
             $this->stateInfo = $this->stateMap[0];
         }catch(Exception $e){
             echo $e->getMessage();
@@ -139,7 +141,8 @@ class Uploader
         $dirname = dirname($this->filePath);
 
         try{
-            //$url = \App\MSExtension\MSFile\MSFileOperate::editorUploadContent($this->filePath,$img,true);
+            Storage::disk(config("filesystems.upload.driver"))->writeStream($this->filePath,$img);
+            $this->fullName= config("filesystems.upload.domain").config("filesystems.upload.prefix").$this->fullName;
             $this->stateInfo = $this->stateMap[0];
         }catch(\Exception $e){
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
