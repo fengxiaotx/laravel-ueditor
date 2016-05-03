@@ -115,7 +115,7 @@ class Uploader
 
         try{
             Storage::disk(config("filesystems.upload.driver"))->write($this->fullName,$file["tmp_name"]);
-            $this->fullName= config("filesystems.upload.domain").config("filesystems.upload.prefix").$this->fullName;
+            $this->fullName= config("filesystems.upload.domain").str_replace('//','/',config("filesystems.upload.prefix").$this->fullName);
             $this->stateInfo = $this->stateMap[0];
         }catch(Exception $e){
             echo $e->getMessage();
@@ -142,7 +142,7 @@ class Uploader
 
         try{
             Storage::disk(config("filesystems.upload.driver"))->writeStream($this->filePath,$img);
-            $this->fullName= config("filesystems.upload.domain").config("filesystems.upload.prefix").$this->fullName;
+            $this->fullName= config("filesystems.upload.domain").str_replace('//','/',config("filesystems.upload.prefix").$this->fullName);
             $this->stateInfo = $this->stateMap[0];
         }catch(\Exception $e){
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
