@@ -31,11 +31,23 @@ class MSUeditorServiceProvider extends ServiceProvider
         $this->getRouter()->group($routeConfig,function($router){
             $router->any('mslaravel-ueditor',["uses"=>"Controller@ueditor"]);
         });
+
+		$configPath = __DIR__."/../../../config/msueditor.php";
+
+		$this->publishes([$configPath => $this->getConfigPath()],'config');
     }
 
     protected function getRouter()
     {
         return $this->app['router'];
     }
+
+	public function getConfigPath(){
+		return config_path("msueditor.php");
+	}
+	protected function publishConfig($configPath)
+	{
+		$this->publishes([$configPath => config_path('msueditor.php')], 'config');
+	}
 
 }
