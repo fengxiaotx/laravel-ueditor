@@ -140,7 +140,8 @@ class Action
             $info = $item->getFileInfo();
             array_push($list, array(
                 "state" => $info["state"],
-				"url" => str_replace('//','/',config("filesystems.upload.domain")."/".config("filesystems.upload.prefix").$info["url"]),
+				//"url" => str_replace('//','/',config("filesystems.upload.domain")."/".config("filesystems.upload.prefix").$info["url"]),
+				"url" => htmlspecialchars($imgUrl),
                 "size" => $info["size"],
                 "title" => htmlspecialchars($info["title"]),
                 "original" => htmlspecialchars($info["original"]),
